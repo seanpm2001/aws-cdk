@@ -1,9 +1,10 @@
 /// <reference path="../../../../../../../../../node_modules/aws-cdk-lib/custom-resources/lib/provider-framework/types.d.ts" />
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
-import * as AWS from 'aws-sdk';
+import { S3 } from '@aws-sdk/client-s3';
 import * as api from './api';
 
-const s3 = new AWS.S3();
+const s3 = new S3();
 
 export async function onEvent(event: AWSCDKAsyncCustomResource.OnEventRequest) {
   switch (event.RequestType) {
@@ -41,7 +42,7 @@ export async function putObject(event: AWSCDKAsyncCustomResource.OnEventRequest)
     Key: objectKey,
     Body: contents,
     ACL: publicRead ? 'public-read' : undefined,
-  }).promise();
+  });
 
   // NOTE: updates to the object key will be handled automatically: a new object will be put and then we return
   // the new name. this will tell cloudformation that the resource has been replaced and it will issue a DELETE
@@ -69,5 +70,5 @@ export async function deleteObject(event: AWSCDKAsyncCustomResource.OnEventReque
   await s3.deleteObject({
     Bucket: bucketName,
     Key: objectKey,
-  }).promise();
+  });
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /// <reference path="../../../../../../../node_modules/aws-cdk-lib/custom-resources/lib/provider-framework/types.d.ts" />
-import { RDS } from 'aws-sdk'; // eslint-disable-line import/no-extraneous-dependencies
+import { RDS } from '@aws-sdk/client-rds'; // eslint-disable-line import/no-extraneous-dependencies
 
 export async function onEventHandler(event: AWSCDKAsyncCustomResource.OnEventRequest): Promise<AWSCDKAsyncCustomResource.OnEventResponse> {
   console.log('Event: %j', event);
@@ -13,7 +13,7 @@ export async function onEventHandler(event: AWSCDKAsyncCustomResource.OnEventReq
     const data = await rds.createDBClusterSnapshot({
       DBClusterIdentifier: event.ResourceProperties.DBClusterIdentifier,
       DBClusterSnapshotIdentifier: event.ResourceProperties.DBClusterSnapshotIdentifier,
-    }).promise();
+    });
     return {
       PhysicalResourceId: physicalResourceId,
       Data: {
@@ -25,7 +25,7 @@ export async function onEventHandler(event: AWSCDKAsyncCustomResource.OnEventReq
   if (event.RequestType === 'Delete') {
     await rds.deleteDBClusterSnapshot({
       DBClusterSnapshotIdentifier: event.ResourceProperties.DBClusterSnapshotIdentifier,
-    }).promise();
+    });
   }
 
   return {
@@ -52,7 +52,7 @@ async function tryGetClusterSnapshotStatus(identifier: string): Promise<string |
     const rds = new RDS();
     const data = await rds.describeDBClusterSnapshots({
       DBClusterSnapshotIdentifier: identifier,
-    }).promise();
+    });
     return data.DBClusterSnapshots?.[0].Status;
   } catch (err: any) {
     if (err.code === 'DBClusterSnapshotNotFoundFault') {
