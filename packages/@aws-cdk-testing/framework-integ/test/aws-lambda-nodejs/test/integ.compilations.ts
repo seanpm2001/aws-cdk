@@ -1,5 +1,4 @@
 import * as path from 'path';
-import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda-nodejs';

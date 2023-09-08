@@ -1,4 +1,4 @@
-import { Code, Function, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Code, Function, IFunction } from 'aws-cdk-lib/aws-lambda';
 import { App, CfnOutput, Duration, RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { AdvancedSecurityMode, BooleanAttribute, DateTimeAttribute, Mfa, NumberAttribute, StringAttribute, UserPool } from 'aws-cdk-lib/aws-cognito';
 import { STANDARD_NODEJS_RUNTIME } from '../../config';
