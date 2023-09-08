@@ -78,7 +78,7 @@ const beanstalkApp = new elasticbeanstalk.CfnApplication(stack, 'beastalk-app', 
 const beanstalkEnv = new elasticbeanstalk.CfnEnvironment(stack, 'beanstlk-env', {
   applicationName: beanstalkApp.applicationName!,
   environmentName: 'codepipeline-test-env',
-  solutionStackName: '64bit Amazon Linux 2 v5.8.3 running Node.js 16',
+  solutionStackName: 'Integration Test Example Solution Stack',
   optionSettings: [
     {
       namespace: 'aws:autoscaling:launchconfiguration',
